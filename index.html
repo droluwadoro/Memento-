@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memento — Mementos that remember for you</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1B3D;
+    --blue: #4A8FE0;
+    --red: #E63946;
+    --bg: #FAFBFC;
+    --text: #10182B;
+    --text-muted: #5B6472;
+    --border: #E7E9EF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 20px; }
+  @media (min-width: 700px) { .wrap { max-width: 720px; } }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 32px; height: 32px; border-radius: 9px; background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+ .logo-mark { width: 32px; height: 32px; border-radius: 9px; display: block; object-fit: cover; }
+  .logo-word { font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--text); }
+  nav a.signin { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+
+  .hero { padding: 48px 0 40px; }
+  .kicker {
+    display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 { font-size: 34px; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px; }
+  @media (min-width: 700px) { h1 { font-size: 44px; } }
+  .subhead { font-size: 17px; color: var(--text-muted); max-width: 480px; margin-bottom: 28px; }
+  .cta-row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--navy); color: #fff; border: none; padding: 14px 26px;
+    border-radius: 10px; font-size: 15px; font-weight: 600; text-decoration: none;
+    display: inline-block; transition: transform 0.15s ease;
+  }
+  .btn-primary:active { transform: scale(0.98); }
+  .link-ghost { color: var(--text); text-decoration: none; font-size: 15px; font-weight: 500; border-bottom: 1px solid var(--border); }
+
+  .section { padding: 40px 0; border-top: 1px solid var(--border); }
+  .section-title { font-size: 22px; font-weight: 700; margin-bottom: 28px; letter-spacing: -0.01em; }
+  .steps { display: flex; flex-direction: column; gap: 22px; }
+  .step { display: flex; gap: 16px; }
+  .step-num {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%;
+    background: var(--navy); color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: var(--text-muted); }
+
+  .callout { background: var(--navy); color: #fff; border-radius: 16px; padding: 28px 24px; margin: 40px 0; }
+  .callout-badge {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.05em; text-transform: uppercase; color: #9DC3F5; margin-bottom: 12px;
+  }
+  .callout p { font-size: 15px; color: #C7D2E8; line-height: 1.6; }
+  .callout p strong { color: #fff; }
+
+  footer { padding: 32px 0 48px; color: var(--text-muted); font-size: 13px; display: flex; align-items: center; gap: 10px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a href="index.html" class="logo">
+         <img src="logo.png" alt="Memento" class="logo-mark">
+        <span class="logo-word">Memento</span>
+      </a>
+      <a href="auth.html" class="signin">Sign in</a>
+    </nav>
+
+    <section class="hero">
+      <span class="kicker">Purchase memory, made permanent</span>
+      <h1>Your purchases have deadlines. Memento remembers them.</h1>
+      <p class="subhead">Track return and warranty windows automatically — and mint a permanent, on-chain proof of purchase for every item, so it's never just your word against theirs.</p>
+      <div class="cta-row">
+        <a href="auth.html" class="btn-primary">Get started free</a>
+        <a href="#how" class="link-ghost">See how it works</a>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <h2 class="section-title">How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div>
+            <div class="step-title">Add a purchase</div>
+            <div class="step-desc">Log the item, retailer, and date in seconds.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div>
+            <div class="step-title">We calculate your deadlines</div>
+            <div class="step-desc">Return windows and warranty dates, tracked automatically from the retailer's standard policy.</div>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div>
+            <div class="step-title">Get reminded, and get proof</div>
+            <div class="step-desc">A timely nudge before deadlines close — backed by an immutable on-chain record of when you bought it.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="callout">
+      <span class="callout-badge">Built on Monad</span>
+      <p>Every Memento can be minted as an on-chain record — a tamper-evident timestamp that proves a purchase existed on the date you say it did. <strong>Real evidence, not just a database row that could be edited.</strong></p>
+    </div>
+
+    <footer>
+      <img src="logo.png" alt="Memento" class="logo-mark" style="width:20px;height:20px;border-radius:6px;">
+      <span>Memento — quietly essential purchase memory.</span>
+    </footer>
+  </div>
+</body>
+</html>

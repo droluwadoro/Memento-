@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — Memento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-header">
+        <img src="logo.png" alt="Memento" class="logo-mark" style="width:40px;height:40px;">
+        <div class="tagline">Mementos that remember for you.</div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab active" data-mode="signin" type="button">Sign in</button>
+        <button class="tab" data-mode="signup" type="button">Create account</button>
+      </div>
+
+      <form id="signin-form" class="auth-form">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <a href="#" id="forgot-link" class="forgot-link">Forgot your password?</a>
+        <button type="submit" class="btn-primary">Sign in</button>
+      </form>
+
+      <form id="signup-form" class="auth-form" hidden>
+        <input type="text" name="name" placeholder="Your name (optional)">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Create a password" required minlength="6">
+        <button type="submit" class="btn-primary">Create account</button>
+      </form>
+
+      <div id="auth-message"></div>
+
+      <p class="fine-print">We only email you about actual deadlines. No spam, ever.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { supabase } from './js/supabase.js';
+
+    const tabs = document.querySelectorAll('.tab');
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+    const message = document.getElementById('auth-message');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const mode = tab.dataset.mode;
+        signinForm.hidden = mode !== 'signin';
+        signupForm.hidden = mode !== 'signup';
+        message.textContent = '';
+        message.className = '';
+      });
+    });
+
+    signinForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = 'Signing in…';
+      message.className = '';
+      const { error } = await supabase.auth.signInWithPassword({
+        email: signinForm.email.value,
+        password: signinForm.password.value,
+      });
+      if (error) {
+        message.textContent = error.message;
+        message.className = 'error';
+      } else {
+        window.location.href = 'app.html';
+      }
+    });
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      message.textContent = 'Creating your account…';
+      message.className = '';
+      const { error } = await supabase.auth.signUp({
+        email: signupForm.email.value,
+        password: signupForm.password.value,
+        options: { data: { name: signupForm.name.value } },
+      });
+      if (error) {
+        message.textContent = error.message;
+        message.className = 'error';
+      } else {
+        message.textContent = 'Check your email to confirm your account, then sign in.';
+        message.className = 'success';
+      }
+    });
+
+    document.getElementById('forgot-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = signinForm.email.value;
+      if (!email) {
+        message.textContent = 'Enter your email above, then tap this again.';
+        message.className = 'error';
+        return;
+      }
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      message.textContent = error ? error.message : 'Password reset email sent.';
+      message.className = error ? 'error' : 'success';
+    });
+  </script>
+</body>
+</html>
